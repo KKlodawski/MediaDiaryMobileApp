@@ -5,28 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prmproj2.R
+import com.example.prmproj2.adapters.Database
 import com.example.prmproj2.adapters.EntryListAdapter
-import com.example.prmproj2.data.EntryRepository
-import com.example.prmproj2.data.RepositoryLocator
 import com.example.prmproj2.databinding.FragmentEntryBinding
-import com.example.prmproj2.databinding.FragmentVerificationBinding
 
 class EntryFragment : Fragment() {
     lateinit var binding: FragmentEntryBinding
-    lateinit var entryRepository: EntryRepository
     lateinit var entryListAdapter: EntryListAdapter
-
+    lateinit var database: Database
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        entryRepository = RepositoryLocator.entryRepository
+        database = Database(requireContext())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return FragmentEntryBinding.inflate(layoutInflater, container, false)
             .also {
                 binding = it
@@ -34,13 +32,19 @@ class EntryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        entryListAdapter = EntryListAdapter()
+        entryListAdapter = context?.let { EntryListAdapter(it) }!!
 
         binding.entryList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = entryListAdapter
         }
 
-        entryListAdapter.entryList = entryRepository.getEntryList();
+        entryListAdapter.entryList = database.getAllEntries()
+
+        binding.entryAddButton.apply {
+            setOnClickListener {
+                findNavController().navigate(R.id.action_entryFragment_to_entryAddFormFragment)
+            }
+        }
     }
 }

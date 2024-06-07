@@ -18,5 +18,23 @@
         android:id="@+id/entryFragment"
         android:name="com.example.prmproj2.fragments.EntryFragment"
         android:label="fragment_entry"
-        tools:layout="@layout/fragment_entry" />
+        tools:layout="@layout/fragment_entry" >
+        <action
+            android:id="@+id/action_entryFragment_to_entryAddFormFragment"
+            app:destination="@id/entryAddFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/entryAddFormFragment"
+        android:name="com.example.prmproj2.fragments.EntryAddFormFragment"
+        android:label="fragment_entry_add_form"
+        tools:layout="@layout/fragment_entry_add_form" >
+        <action
+            android:id="@+id/action_entryAddFormFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.example.prmproj2.fragments.ImageFragment"
+        android:label="fragment_image"
+        tools:layout="@layout/fragment_image" />
 </navigation>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="note">Notatka</string>
+    <string name="addImage">Dodaj Zdjęcie</string>
+    <string name="Image">Zdjęcie</string>
+    <string name="Save">Zapisz</string>
 </resources>
