@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prmproj2.R
 import com.example.prmproj2.adapters.Database
 import com.example.prmproj2.adapters.EntryListAdapter
 import com.example.prmproj2.databinding.FragmentEntryBinding
+import com.example.prmproj2.model.FormType
 
 class EntryFragment : Fragment() {
     lateinit var binding: FragmentEntryBinding
@@ -32,7 +35,15 @@ class EntryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        entryListAdapter = context?.let { EntryListAdapter(it) }!!
+        entryListAdapter = context?.let { it ->
+            EntryListAdapter(it) {
+            findNavController()
+                .navigate(
+                    R.id.action_entryFragment_to_entryAddFormFragment,
+                    bundleOf("type" to FormType.Edit(it))
+                )
+        }
+        }!!
 
         binding.entryList.apply {
             layoutManager = LinearLayoutManager(context)

@@ -4,4 +4,12 @@
     <string name="addImage">Dodaj Zdjęcie</string>
     <string name="Image">Zdjęcie</string>
     <string name="Save">Zapisz</string>
+    <string name="Record">Nagraj</string>
+    <string name="Recording">Nagrywanie</string>
+    <string name="Recorded">Nagrano</string>
+    <string name="AudioNotExists">Nagranie nie istnieje!</string>
+    <string name="Listen">Odsłuchaj</string>
+    <string name="NoteLengthError">Notatka jest pusta!</string>
+    <string name="PinHint">Wprowadź PIN</string>
+    <string name="WrongPIN">Nieprawidłowy PIN!</string>
 </resources>

@@ -113,4 +113,44 @@ class Database(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         }
         return lastIndex
     }
+
+    @SuppressLint("Range")
+    fun getEntryById(id: Int): entry? {
+        val entry: entry
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID = $id"
+        val cursor: Cursor = db.rawQuery(query, null)
+        cursor.use {
+            if (it.moveToFirst()) {
+                val entryId = it.getInt(it.getColumnIndex(COLUMN_ID))
+                val note = it.getString(it.getColumnIndex(COLUMN_NOTE))
+                val latitude = it.getDouble(it.getColumnIndex(COLUMN_LOCATION_LAT))
+                val longitude = it.getDouble(it.getColumnIndex(COLUMN_LOCATION_LONG))
+                val location = if (latitude != 0.0 && longitude != 0.0) Location("").apply {
+                    this.latitude = latitude
+                    this.longitude = longitude
+                } else null
+                val imageId = it.getInt(it.getColumnIndex(COLUMN_IMAGE_ID))
+                val voiceId = it.getInt(it.getColumnIndex(COLUMN_VOICE_ID))
+                entry = entry(entryId, note, location, imageId, voiceId)
+                return entry
+            }
+        }
+        return null
+    }
+
+    fun editEntry(entry: entry): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COLUMN_NOTE, entry.note)
+        entry.location?.let {
+            values.put(COLUMN_LOCATION_LAT, it.latitude)
+            values.put(COLUMN_LOCATION_LONG, it.longitude)
+        }
+        values.put(COLUMN_IMAGE_ID, entry.imageId)
+        values.put(COLUMN_VOICE_ID, entry.voiceId)
+
+        return db.update(TABLE_NAME,values,"$COLUMN_ID = ?", arrayOf(entry.entryId.toString())) > 0
+    }
+
 }

@@ -11,8 +11,8 @@ data class entry(
     val entryId: Int,
     val note: String,
     val location: Location?,
-    val imageId: Int,
-    val voiceId: Int
+    val imageId: Int?,
+    val voiceId: Int?
 ) {
     fun getNote(context: Context): String {
         return location?.let { loc ->

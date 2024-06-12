@@ -5,5 +5,13 @@
     <string name="addImage">Add Image</string>
     <string name="Image">Image</string>
     <string name="Save">Save</string>
+    <string name="Record">Record</string>
+    <string name="Recording" translatable="false">Recording</string>
+    <string name="Recorded">Recorded</string>
+    <string name="AudioNotExists">Audio doesn\'t exists!</string>
+    <string name="Listen">Listen</string>
+    <string name="NoteLengthError">Note is blank!</string>
+    <string name="PinHint">Enter PIN</string>
+    <string name="WrongPIN">Wrong PIN!</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
